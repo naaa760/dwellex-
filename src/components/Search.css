@@ -1,0 +1,51 @@
+header {
+  position: relative;
+  padding-top: 100px; /* Space for fixed navigation */
+  width: 100%;
+  height: 500px; /* Adjust height as needed */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/houses.png"); /* Add your background image */
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.header__title {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header__search {
+  width: 60%;
+  max-width: 800px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.header__search:focus {
+  outline: none;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .header__search {
+    width: 80%;
+  }
+
+  .header__title {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+}
