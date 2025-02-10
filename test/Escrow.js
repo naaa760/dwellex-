@@ -9,17 +9,7 @@ describe("Escrow", () => {
   let buyer, seller, inspector, lender;
   let realEstate, escrow;
 
-  describe("Deployment", () => {
-    it("Returns NFT address", async () => {});
-
-    it("Returns seller", async () => {});
-
-    it("Returns inspector", async () => {});
-
-    it("Returns lender", async () => {});
-  });
-
-  it("saves the addresses", async () => {
+  beforeEach(async () => {
     [buyer, seller, inspector, lender] = await ethers.getSigners("");
 
     const RealEstate = await ethers.getContractFactory("RealEstate");
@@ -40,13 +30,21 @@ describe("Escrow", () => {
       inspector.address,
       lender.address
     );
+  });
 
-    let result = await escrow.nftAddress();
-    expect(result).to.be.equal(realEstate.address);
+  describe("Deployment", () => {
+    it("Returns NFT address", async () => {
+      const result = await escrow.nftAddress();
+      expect(result).to.be.equal(realEstate.address);
+    });
 
-    result = await escrow.seller();
-    expect(result).to.be.equal(seller.address);
+    it("Returns seller", async () => {
+      const result = await escrow.seller();
+      expect(result).to.be.equal(seller.address);
+    });
 
-    //console.log(realEstate.address);
+    it("Returns inspector", async () => {});
+
+    it("Returns lender", async () => {});
   });
 });
