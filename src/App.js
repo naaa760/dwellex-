@@ -6,6 +6,7 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import Search from "./components/Search";
 import Home from "./components/Home";
+import ScrollEffect from "./components/ScrollEffect";
 
 // ABIs
 import RealEstate from "./abis/RealEstate.json";
@@ -126,6 +127,7 @@ function App() {
 
   return (
     <div>
+      <ScrollEffect />
       <Navigation account={account} setAccount={setAccount} />
       <Search />
 
