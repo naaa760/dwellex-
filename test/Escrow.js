@@ -9,6 +9,16 @@ describe("Escrow", () => {
   let buyer, seller, inspector, lender;
   let realEstate, escrow;
 
+  describe("Deployment", () => {
+    it("Returns NFT address", async () => {});
+
+    it("Returns seller", async () => {});
+
+    it("Returns inspector", async () => {});
+
+    it("Returns lender", async () => {});
+  });
+
   it("saves the addresses", async () => {
     [buyer, seller, inspector, lender] = await ethers.getSigners("");
 
