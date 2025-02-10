@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import "./App.css";
 
 // Components
 import Navigation from "./components/Navigation";
@@ -24,41 +25,94 @@ function App() {
   const [toggle, setToggle] = useState(false);
 
   const loadBlockchainData = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    setProvider(provider);
-    const network = await provider.getNetwork();
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(provider);
 
-    const realEstate = new ethers.Contract(
-      config[network.chainId].realEstate.address,
-      RealEstate,
-      provider
-    );
-    const totalSupply = await realEstate.totalSupply();
-    const homes = [];
+      // Add dummy data for testing
+      const dummyHomes = [
+        {
+          id: 1,
+          name: "Luxury Apartment",
+          address: "1234 Elm St",
+          description: "Beautiful apartment in downtown",
+          image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+          attributes: [
+            { trait_type: "Price", value: "1" },
+            { trait_type: "Year", value: "2023" },
+            { trait_type: "Bedrooms", value: "1" },
+            { trait_type: "Bathrooms", value: "2" },
+            { trait_type: "Square Feet", value: "3" },
+          ],
+        },
+        {
+          id: 2,
+          name: "Beach House",
+          address: "1234 Elm St",
+          description: "Beautiful house with ocean view",
+          image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+          attributes: [
+            { trait_type: "Price", value: "1" },
+            { trait_type: "Year", value: "2023" },
+            { trait_type: "Bedrooms", value: "1" },
+            { trait_type: "Bathrooms", value: "2" },
+            { trait_type: "Square Feet", value: "3" },
+          ],
+        },
+        {
+          id: 3,
+          name: "Modern Villa",
+          address: "1234 Elm St",
+          description: "Modern villa with pool",
+          image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9",
+          attributes: [
+            { trait_type: "Price", value: "1" },
+            { trait_type: "Year", value: "2023" },
+            { trait_type: "Bedrooms", value: "1" },
+            { trait_type: "Bathrooms", value: "2" },
+            { trait_type: "Square Feet", value: "3" },
+          ],
+        },
+      ];
 
-    for (var i = 1; i <= totalSupply; i++) {
-      const uri = await realEstate.tokenURI(i);
-      const response = await fetch(uri);
-      const metadata = await response.json();
-      homes.push(metadata);
-    }
+      setHomes(dummyHomes);
 
-    setHomes(homes);
+      const network = await provider.getNetwork();
 
-    const escrow = new ethers.Contract(
-      config[network.chainId].escrow.address,
-      Escrow,
-      provider
-    );
-    setEscrow(escrow);
+      const realEstate = new ethers.Contract(
+        config[network.chainId].realEstate.address,
+        RealEstate,
+        provider
+      );
+      const totalSupply = await realEstate.totalSupply();
+      const homes = [];
 
-    window.ethereum.on("accountsChanged", async () => {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
+      for (var i = 1; i <= totalSupply; i++) {
+        const uri = await realEstate.tokenURI(i);
+        const response = await fetch(uri);
+        const metadata = await response.json();
+        homes.push(metadata);
+      }
+
+      setHomes(homes);
+
+      const escrow = new ethers.Contract(
+        config[network.chainId].escrow.address,
+        Escrow,
+        provider
+      );
+      setEscrow(escrow);
+
+      window.ethereum.on("accountsChanged", async () => {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = ethers.utils.getAddress(accounts[0]);
+        setAccount(account);
       });
-      const account = ethers.utils.getAddress(accounts[0]);
-      setAccount(account);
-    });
+    } catch (error) {
+      console.error("Error loading blockchain data:", error);
+    }
   };
 
   useEffect(() => {
