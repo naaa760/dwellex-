@@ -41,8 +41,11 @@ describe("Escrow", () => {
       lender.address
     );
 
-    const result = await escrow.nftAddress();
+    let result = await escrow.nftAddress();
     expect(result).to.be.equal(realEstate.address);
+
+    result = await escrow.seller();
+    expect(result).to.be.equal(seller.address);
 
     //console.log(realEstate.address);
   });
