@@ -6,10 +6,34 @@ const tokens = (n) => {
 };
 
 describe("Escrow", () => {
+  let buyer, seller, inspector, lender;
+  let realEstate, escrow;
+
   it("saves the addresses", async () => {
+    [buyer, seller, inspector, lender] = await ethers.getSigners("");
+
     const RealEstate = await ethers.getContractFactory("RealEstate");
     realEstate = await RealEstate.deploy();
 
-    console.log(realEstate.address);
+    // Mint
+    let transaction = await realEstate
+      .connect(seller)
+      .mint(
+        "https://ipfs.io/ipfs/QmTudSYeM7mz3PkYEWXWqPjomRPHogcMFSq7XAvsvsgAPS"
+      );
+    await transaction.wait();
+
+    const Escrow = await ethers.getContractFactory("Escrow");
+    escrow = await Escrow.deploy(
+      realEstate.address,
+      seller.address,
+      inspector.address,
+      lender.address
+    );
+
+    const result = await escrow.nftAddress();
+    expect(result).to.be.equal(realEstate.address);
+
+    //console.log(realEstate.address);
   });
 });
