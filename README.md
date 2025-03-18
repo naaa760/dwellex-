@@ -1,7 +1,8 @@
-## 📋 Overview
+## DWELLEX ✨
 
 ![Screenshot from 2025-03-19 02-08-18](https://github.com/user-attachments/assets/7af340d9-2026-409c-aa5a-cd9552800a2a)
 
+## 📋 Overview
 
 Dwellex is a Web3-powered real estate marketplace that connects buyers, sellers, inspectors, and lenders on the blockchain. The platform enables secure property transactions using smart contracts and cryptocurrency payments.
 
